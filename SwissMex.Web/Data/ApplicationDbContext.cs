@@ -15,9 +15,9 @@ namespace SwissMex.Web.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Sci-Fi", DisplayOrder = 1 },
-                new Category { Id = 2, Name = "Dorama", DisplayOrder = 2 },
-                new Category { Id = 3, Name = "Action", DisplayOrder = 3 }
+                new Category { Id = 1, Name = "Siembra", DisplayOrder = 1 },
+                new Category { Id = 2, Name = "Cosecha", DisplayOrder = 2 },
+                new Category { Id = 3, Name = "Aspersión", DisplayOrder = 3 }
 
             );
         }
