@@ -4,7 +4,9 @@ using SwissMex.Web.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddMvcOptions(options => {
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor( x => "Este valor no puede dejarse en blanco");
+});
 
 //Agregar cadena de conexión
 builder.Services.AddDbContext<ApplicationDbContext>(
