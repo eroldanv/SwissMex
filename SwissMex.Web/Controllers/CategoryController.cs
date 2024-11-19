@@ -13,8 +13,15 @@ namespace SwissMex.Web.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> categoriesList = context.Categories.ToList();
+            var categoriesList = context.Categories.ToList();
+            
             return View(categoriesList);
+        }
+
+        public IActionResult Create()
+        {
+
+            return View();
         }
     }
 }
