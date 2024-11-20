@@ -41,7 +41,9 @@ namespace SwissMex.Web.Controllers
                 return NotFound();
                 
             }
+
             
+
             return View(result);
         }
 
@@ -52,7 +54,8 @@ namespace SwissMex.Web.Controllers
             {
                 this.context.Categories.Update(formInput);
                 context.SaveChanges();
-
+                
+                TempData["success"] = "Categoría actualizada correctamente!";
                 return RedirectToAction("Index");
             }
 
@@ -79,8 +82,10 @@ namespace SwissMex.Web.Controllers
                 this.context.Categories.Add(formInput);
                 context.SaveChanges();
 
+                TempData["success"] = "Categoría agregada correctamente!";
                 return RedirectToAction("Index");
             }
+
 
             return View();
 
@@ -116,10 +121,12 @@ namespace SwissMex.Web.Controllers
                 this.context.Categories.Remove(category);
                 context.SaveChanges();
 
-                return RedirectToAction("Index");
-            
 
-            return View();
+            TempData["success"] = "Categoría borrada correctamente!";
+
+            return RedirectToAction("Index");            
+
+            
 
         }
 
