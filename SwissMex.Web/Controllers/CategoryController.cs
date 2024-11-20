@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SwissMex.Web.Data;
 using SwissMex.Web.Models;
 
@@ -23,7 +24,43 @@ namespace SwissMex.Web.Controllers
             return View();
         }
 
-       
+        public IActionResult Edit(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+           
+            //Category? result = context.Categories.Find(id);
+            Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
+            //Category? result2 = context.Categories.Where(x => x.Id == id).FirstOrDefault();
+            //Category? result3 = context.Categories.First(x => x.Id == id);
+
+            if (result == null)
+            {
+                return NotFound();
+                
+            }
+            
+            return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category formInput)
+        {           
+            if (ModelState.IsValid)
+            {
+                this.context.Categories.Update(formInput);
+                context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+
+        }
+
+
 
         [HttpPost]
         public IActionResult Create(Category formInput)
@@ -44,6 +81,43 @@ namespace SwissMex.Web.Controllers
 
                 return RedirectToAction("Index");
             }
+
+            return View();
+
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+           
+            Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
+           
+            if (result == null)
+            {
+                return NotFound();
+
+            }
+
+            return View(result);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? category = context.Categories.FirstOrDefault(x => id == x.Id);
+
+            if (category is null)
+            {
+                return NotFound();
+            }
+                this.context.Categories.Remove(category);
+                context.SaveChanges();
+
+                return RedirectToAction("Index");
+            
 
             return View();
 
