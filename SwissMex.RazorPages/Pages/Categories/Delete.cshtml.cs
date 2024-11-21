@@ -6,7 +6,7 @@ using SwissMex.RazorPages.Models;
 namespace SwissMex.RazorPages.Pages.Categories
 {
     [BindProperties]
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext databaseCtx;
 
@@ -14,7 +14,7 @@ namespace SwissMex.RazorPages.Pages.Categories
         public Category Category { get; set; } = null!;
         ///public int? Id { get; set; }
 
-        public EditModel(ApplicationDbContext ctx)
+        public DeleteModel(ApplicationDbContext ctx)
         {
             this.databaseCtx = ctx;
         }
@@ -24,7 +24,7 @@ namespace SwissMex.RazorPages.Pages.Categories
             if (id == null || id == 0)
             {
                 return NotFound();
-            }            
+            }
 
             this.Category = databaseCtx.Categories.FirstOrDefault(x => x.Id == id)!;
 
@@ -32,19 +32,20 @@ namespace SwissMex.RazorPages.Pages.Categories
 
         }
 
-        public IActionResult OnPost() 
+        public IActionResult OnPost()
         {
-            if (ModelState.IsValid && Category != null)
+            Category? category = databaseCtx.Categories.FirstOrDefault(x => Category.Id == x.Id);
+
+            if (category is null)
             {
-                databaseCtx.Categories.Update(Category);
-
-                databaseCtx.SaveChanges();
-
-                TempData["success"] = "Categoría actualizada correctamente!";
-                return RedirectToPage("/Categories/Index");
-
+                return NotFound();
             }
-            return Page();
+            this.databaseCtx.Categories.Remove(category);
+            databaseCtx.SaveChanges();
+
+
+            TempData["success"] = "Categoría borrada correctamente!";
+            return RedirectToPage("Index");
 
         }
     }
