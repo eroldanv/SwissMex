@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SwissMex.Web.Models;
+using SwissMex.Models.Models;
 using System.Diagnostics;
 
 namespace SwissMex.Web.Controllers

@@ -1,19 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using SwissMex.DataAccess.Data;
+using ServiceLifeTime.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddMvcOptions(options => {
-    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor( x => "Este valor no puede dejarse en blanco");
-});
+builder.Services.AddControllersWithViews();
 
-//Agregar cadena de conexión
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    )
-);
+builder.Services.AddTransient<ITransientGUIDService, TransientGUIDService>();
+builder.Services.AddScoped<IScopedGUIDService, ScopedGUIDService>();
+builder.Services.AddSingleton<ISingletonGUIDService, SingletonGUIDService>();
 
 var app = builder.Build();
 

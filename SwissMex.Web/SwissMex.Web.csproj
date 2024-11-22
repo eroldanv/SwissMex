@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SwissMex.DataAccess\SwissMex.DataAccess.csproj" />
+    <ProjectReference Include="..\SwissMex.Models\SwissMex.Models.csproj" />
+  </ItemGroup>
+
 </Project>

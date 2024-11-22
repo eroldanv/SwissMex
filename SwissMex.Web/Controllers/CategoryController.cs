@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using SwissMex.Web.Data;
-using SwissMex.Web.Models;
+using SwissMex.DataAccess.Data;
+using SwissMex.Models.Models;
 
 namespace SwissMex.Web.Controllers
 {
@@ -70,7 +70,7 @@ namespace SwissMex.Web.Controllers
         {
             if (formInput.Name == formInput.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("Name", "El nombre no puede ser el mismo que la prioridad");
+                ModelState.AddModelError("", "El nombre no puede ser el mismo que la prioridad");
             }
             //if(formInput.Name != null && formInput.Name.ToLower() == "prueba")
             //{
