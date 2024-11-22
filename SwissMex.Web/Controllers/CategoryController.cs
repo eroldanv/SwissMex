@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SwissMex.DataAccess.Data;
+using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
 
 namespace SwissMex.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private ApplicationDbContext context;
-        public CategoryController(ApplicationDbContext context)
+        //private ApplicationDbContext context;
+        private readonly ICategoryRepository _categoryRepository;
+
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            this.context = context;
+            //this.context = context;
+            this._categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
-            var categoriesList = context.Categories.ToList();
-            
+            //var categoriesList = context.Categories.ToList();
+            var categoriesList = this._categoryRepository.GetAll();
+
             return View(categoriesList);
         }
 
@@ -32,7 +37,10 @@ namespace SwissMex.Web.Controllers
             }
            
             //Category? result = context.Categories.Find(id);
-            Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
+
+            //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
+            Category? result = this._categoryRepository.Get(x => x.Id == id);
+
             //Category? result2 = context.Categories.Where(x => x.Id == id).FirstOrDefault();
             //Category? result3 = context.Categories.First(x => x.Id == id);
 
@@ -52,9 +60,12 @@ namespace SwissMex.Web.Controllers
         {           
             if (ModelState.IsValid)
             {
-                this.context.Categories.Update(formInput);
-                context.SaveChanges();
-                
+                //this.context.Categories.Update(formInput);
+                //context.SaveChanges();
+
+                this._categoryRepository.Update(formInput);
+                this._categoryRepository.Save();
+
                 TempData["success"] = "Categoría actualizada correctamente!";
                 return RedirectToAction("Index");
             }
@@ -79,8 +90,11 @@ namespace SwissMex.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                this.context.Categories.Add(formInput);
-                context.SaveChanges();
+                //this.context.Categories.Add(formInput);
+                //context.SaveChanges();
+
+                this._categoryRepository.Add(formInput);
+                this._categoryRepository.Save();
 
                 TempData["success"] = "Categoría agregada correctamente!";
                 return RedirectToAction("Index");
@@ -98,8 +112,10 @@ namespace SwissMex.Web.Controllers
                 return NotFound();
             }
            
-            Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
-           
+            //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
+
+            Category? result = this._categoryRepository.Get(x => x.Id == id);
+
             if (result == null)
             {
                 return NotFound();
@@ -112,14 +128,18 @@ namespace SwissMex.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? category = context.Categories.FirstOrDefault(x => id == x.Id);
+            //Category? category = context.Categories.FirstOrDefault(x => id == x.Id);
+            Category? category = this._categoryRepository.Get(x => x.Id == id); 
 
             if (category is null)
             {
                 return NotFound();
             }
-                this.context.Categories.Remove(category);
-                context.SaveChanges();
+                //this.context.Categories.Remove(category);
+                //context.SaveChanges();
+
+                this._categoryRepository.Remove(category);
+                this._categoryRepository.Save();
 
 
             TempData["success"] = "Categoría borrada correctamente!";

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+
 using ServiceLifeTime.Models;
 using ServiceLifeTime.Services;
+
 using System.Diagnostics;
 using System.Text;
 
@@ -40,6 +42,9 @@ namespace ServiceLifeTime.Controllers
             builder.Append($"Singleton 1: {_singleton1.GetGuid()}\n");
             builder.Append($"Singleton 2: {_singleton2.GetGuid()}\n");
 
+           
+        
+             
 
             return Ok(builder.ToString());
         }

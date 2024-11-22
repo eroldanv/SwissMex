@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SwissMex.DataAccess.Data;
+using SwissMex.DataAccess.Repository;
+using SwissMex.DataAccess.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
