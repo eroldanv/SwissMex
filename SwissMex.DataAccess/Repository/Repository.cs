@@ -15,7 +15,7 @@ namespace SwissMex.DataAccess.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly ApplicationDbContext appCtx;
-        protected DbSet<TEntity> dbSet;
+        internal DbSet<TEntity> dbSet;
 
         public Repository(ApplicationDbContext appCtx)
         {
@@ -34,7 +34,6 @@ namespace SwissMex.DataAccess.Repository
             query = query.Where(filter);
 
             return query.FirstOrDefault();
-
         }
 
         public IEnumerable<TEntity> GetAll()

@@ -9,17 +9,19 @@ namespace SwissMex.Web.Controllers
     public class CategoryController : Controller
     {
         //private ApplicationDbContext context;
-        private readonly ICategoryRepository _categoryRepository;
+        //private readonly ICategoryRepository _categoryRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             //this.context = context;
-            this._categoryRepository = categoryRepository;
+            this._unitOfWork = unitOfWork;
+            //this._categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
             //var categoriesList = context.Categories.ToList();
-            var categoriesList = this._categoryRepository.GetAll();
+            var categoriesList = this._unitOfWork.Category.GetAll();
 
             return View(categoriesList);
         }
@@ -39,7 +41,7 @@ namespace SwissMex.Web.Controllers
             //Category? result = context.Categories.Find(id);
 
             //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
-            Category? result = this._categoryRepository.Get(x => x.Id == id);
+            Category? result = this._unitOfWork.Category.Get(x => x.Id == id);
 
             //Category? result2 = context.Categories.Where(x => x.Id == id).FirstOrDefault();
             //Category? result3 = context.Categories.First(x => x.Id == id);
@@ -49,9 +51,6 @@ namespace SwissMex.Web.Controllers
                 return NotFound();
                 
             }
-
-            
-
             return View(result);
         }
 
@@ -63,8 +62,8 @@ namespace SwissMex.Web.Controllers
                 //this.context.Categories.Update(formInput);
                 //context.SaveChanges();
 
-                this._categoryRepository.Update(formInput);
-                this._categoryRepository.Save();
+                this._unitOfWork.Category.Update(formInput);
+                this._unitOfWork.Save();
 
                 TempData["success"] = "Categoría actualizada correctamente!";
                 return RedirectToAction("Index");
@@ -93,8 +92,8 @@ namespace SwissMex.Web.Controllers
                 //this.context.Categories.Add(formInput);
                 //context.SaveChanges();
 
-                this._categoryRepository.Add(formInput);
-                this._categoryRepository.Save();
+                this._unitOfWork.Category.Add(formInput);
+                this._unitOfWork.Save();
 
                 TempData["success"] = "Categoría agregada correctamente!";
                 return RedirectToAction("Index");
@@ -114,7 +113,7 @@ namespace SwissMex.Web.Controllers
            
             //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
 
-            Category? result = this._categoryRepository.Get(x => x.Id == id);
+            Category? result = this._unitOfWork.Category.Get(x => x.Id == id);
 
             if (result == null)
             {
@@ -129,7 +128,7 @@ namespace SwissMex.Web.Controllers
         public IActionResult DeletePOST(int? id)
         {
             //Category? category = context.Categories.FirstOrDefault(x => id == x.Id);
-            Category? category = this._categoryRepository.Get(x => x.Id == id); 
+            Category? category = this._unitOfWork.Category.Get(x => x.Id == id); 
 
             if (category is null)
             {
@@ -138,8 +137,8 @@ namespace SwissMex.Web.Controllers
                 //this.context.Categories.Remove(category);
                 //context.SaveChanges();
 
-                this._categoryRepository.Remove(category);
-                this._categoryRepository.Save();
+                this._unitOfWork.Category.Remove(category);
+                this._unitOfWork.Save();
 
 
             TempData["success"] = "Categoría borrada correctamente!";

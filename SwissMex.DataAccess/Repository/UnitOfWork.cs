@@ -1,6 +1,5 @@
 ﻿using SwissMex.DataAccess.Data;
 using SwissMex.DataAccess.Repository.IRepository;
-using SwissMex.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +8,22 @@ using System.Threading.Tasks;
 
 namespace SwissMex.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category> ,ICategoryRepository
+    public class UnitOfWork : IUnitOfWork
     {
+
+        public ICategoryRepository Category { get; private set; }
+
         private readonly ApplicationDbContext context;
 
-        public CategoryRepository(ApplicationDbContext appCtx) : base(appCtx)
+        public UnitOfWork(ApplicationDbContext appCtx, ICategoryRepository categoryRepository)
         {
             this.context = appCtx;
-            
+            this.Category = categoryRepository;
         }
 
-        //public void Save()
-        //{
-        //    this.context.SaveChanges();
-        //}
-
-        public void Update(Category category)
+        public void Save()
         {
-            this.context.Update(category);
+            this.context.SaveChanges();
         }
     }
 }
