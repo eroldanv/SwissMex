@@ -12,13 +12,16 @@ namespace SwissMex.DataAccess.Repository
     {
 
         public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; }
 
         private readonly ApplicationDbContext context;
 
-        public UnitOfWork(ApplicationDbContext appCtx, ICategoryRepository categoryRepository)
+        public UnitOfWork(ApplicationDbContext appCtx, ICategoryRepository categoryRepository,
+                                                       IProductRepository productRepository)
         {
             this.context = appCtx;
             this.Category = categoryRepository;
+            this.Product = productRepository;
         }
 
         public void Save()

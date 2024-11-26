@@ -4,8 +4,9 @@ using SwissMex.DataAccess.Data;
 using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
 
-namespace SwissMex.Web.Controllers
+namespace SwissMex.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         //private ApplicationDbContext context;
@@ -15,13 +16,13 @@ namespace SwissMex.Web.Controllers
         public CategoryController(IUnitOfWork unitOfWork)
         {
             //this.context = context;
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
             //this._categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
             //var categoriesList = context.Categories.ToList();
-            var categoriesList = this._unitOfWork.Category.GetAll();
+            var categoriesList = _unitOfWork.Category.GetAll();
 
             return View(categoriesList);
         }
@@ -33,15 +34,15 @@ namespace SwissMex.Web.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-           
+
             //Category? result = context.Categories.Find(id);
 
             //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
-            Category? result = this._unitOfWork.Category.Get(x => x.Id == id);
+            Category? result = _unitOfWork.Category.Get(x => x.Id == id);
 
             //Category? result2 = context.Categories.Where(x => x.Id == id).FirstOrDefault();
             //Category? result3 = context.Categories.First(x => x.Id == id);
@@ -49,21 +50,21 @@ namespace SwissMex.Web.Controllers
             if (result == null)
             {
                 return NotFound();
-                
+
             }
             return View(result);
         }
 
         [HttpPost]
         public IActionResult Edit(Category formInput)
-        {           
+        {
             if (ModelState.IsValid)
             {
                 //this.context.Categories.Update(formInput);
                 //context.SaveChanges();
 
-                this._unitOfWork.Category.Update(formInput);
-                this._unitOfWork.Save();
+                _unitOfWork.Category.Update(formInput);
+                _unitOfWork.Save();
 
                 TempData["success"] = "Categoría actualizada correctamente!";
                 return RedirectToAction("Index");
@@ -92,8 +93,8 @@ namespace SwissMex.Web.Controllers
                 //this.context.Categories.Add(formInput);
                 //context.SaveChanges();
 
-                this._unitOfWork.Category.Add(formInput);
-                this._unitOfWork.Save();
+                _unitOfWork.Category.Add(formInput);
+                _unitOfWork.Save();
 
                 TempData["success"] = "Categoría agregada correctamente!";
                 return RedirectToAction("Index");
@@ -110,10 +111,10 @@ namespace SwissMex.Web.Controllers
             {
                 return NotFound();
             }
-           
+
             //Category? result = context.Categories.FirstOrDefault(x => x.Id == id);
 
-            Category? result = this._unitOfWork.Category.Get(x => x.Id == id);
+            Category? result = _unitOfWork.Category.Get(x => x.Id == id);
 
             if (result == null)
             {
@@ -128,24 +129,24 @@ namespace SwissMex.Web.Controllers
         public IActionResult DeletePOST(int? id)
         {
             //Category? category = context.Categories.FirstOrDefault(x => id == x.Id);
-            Category? category = this._unitOfWork.Category.Get(x => x.Id == id); 
+            Category? category = _unitOfWork.Category.Get(x => x.Id == id);
 
             if (category is null)
             {
                 return NotFound();
             }
-                //this.context.Categories.Remove(category);
-                //context.SaveChanges();
+            //this.context.Categories.Remove(category);
+            //context.SaveChanges();
 
-                this._unitOfWork.Category.Remove(category);
-                this._unitOfWork.Save();
+            _unitOfWork.Category.Remove(category);
+            _unitOfWork.Save();
 
 
             TempData["success"] = "Categoría borrada correctamente!";
 
-            return RedirectToAction("Index");            
+            return RedirectToAction("Index");
 
-            
+
 
         }
 

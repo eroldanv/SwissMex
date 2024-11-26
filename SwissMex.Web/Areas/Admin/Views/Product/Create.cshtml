@@ -1,0 +1,81 @@
+﻿@model Product
+
+
+<div class="card bg-light mb-3">
+
+    <div class="card-body">
+        <div class="card-title text-primary">Nuevo Producto</div>
+        <p class="card-text">
+            <div asp-validation-summary="ModelOnly"></div>
+            <form method="post" class="row">
+                <div class="mt-0 row">
+
+                    @* <div asp-validation-summary="All"></div> *@
+
+                    <div class="col-12 py-2">                        
+                        <label asp-for="Title" class="ms-1 mt-1"></label>
+                        <input asp-for="Title" type="text" class="form-control border-0 shadow">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 py-2">                       
+                        <label asp-for="Description" class="ms-1 mt-1"></label>
+                        <input type="text" asp-for="Description" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">                        
+                        <label asp-for="PartNumber" class="ms-1 mt-1"></label>
+                        <input asp-for="PartNumber" class="form-control border-0 shadow" />
+                        <span asp-validation-for="PartNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label asp-for="Brand" class="ms-1 mt-1"></label>
+                        <input asp-for="Brand" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label asp-for="Price" class="ms-1 mt-1"></label>
+                        <input type="number" asp-for="Price" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label asp-for="ListPrice" class="ms-1 mt-1"></label>
+                        <input asp-for="ListPrice" class="form-control border-0 shadow" />
+                        <span asp-validation-for="ListPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label asp-for="Price25" class="ms-1 mt-1"></label>
+                        <input asp-for="Price25" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Price25" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label asp-for="Price50" class="ms-1 mt-1"></label>
+                        <input asp-for="Price50" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Price50" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-primary form-control" type="submit">Agregar</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a class="btn btn-outline-info form-control" asp-controller="Product" asp-action="Index">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

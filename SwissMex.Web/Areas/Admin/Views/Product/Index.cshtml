@@ -1,0 +1,68 @@
+﻿@model List<Product>
+
+
+
+
+<div class="container">
+    <div class="row pt-4 pb-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Lista de Productos
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-primary px-4"><i class="bi bi-plus-circle"></i> Nuevo Producto</a>
+        </div>
+    </div>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>               
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th class="align-middle">No. de Parte</th>
+                <th class="align-middle">Marca</th>
+                <th class="align-middle">Precio de Lista</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model)
+            {
+
+                <tr>
+                    <td class="align-middle">
+                        @prod.Title
+                    </td>
+                    <td>
+                        <div style="white-space: pre-line">@prod.Description
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        @prod.PartNumber
+                    </td>
+                    <td class="align-middle">
+                        @prod.Brand
+                    </td>
+                    <td class="align-middle">
+                        @prod.ListPrice
+                    </td>
+                    <td class="text-center align-middle">
+                        <div class="btn-group" role="group">
+                            <a asp-controller="Product" asp-route-id="@prod.Id" asp-action="Edit" class="btn btn-primary btn-lg rounded-start-pill">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-controller="Product" asp-route-id="@prod.Id" asp-action="Delete" class="btn btn-danger btn-lg  rounded-end-pill">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+</div>
