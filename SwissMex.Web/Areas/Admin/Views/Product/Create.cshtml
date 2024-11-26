@@ -1,6 +1,5 @@
 ﻿@model Product
 
-
 <div class="card bg-light mb-3">
 
     <div class="card-body">
@@ -33,6 +32,19 @@
                     <div class="col-6 py-2">
                         <label asp-for="Brand" class="ms-1 mt-1"></label>
                         <input asp-for="Brand" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 py-2">
+                        <label asp-for="CategoryId" class="ms-1 mt-1"></label>
+                        @* <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select border-0 shadow" >
+                            <option> -- Selecciona una categoría -- </option>
+                            
+                        </select> *@
+                        <select asp-for="CategoryId" asp-items="@(ViewData["CategoryList"] as IEnumerable<SelectListItem>)" class="form-select border-0 shadow">
+                            <option> -- Selecciona una categoría -- </option>
+
+                        </select>
                         <span asp-validation-for="Brand" class="text-danger"></span>
                     </div>
 

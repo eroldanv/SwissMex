@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,13 @@ namespace SwissMex.Models.Models
         [Display(Name = "Precio 50+")]
         [Range(1, 10000000)]
         public double Price50 { get; set; }
+
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; } = null!;
+
+        public string ImageUrl { get; set; }
 
 
     }

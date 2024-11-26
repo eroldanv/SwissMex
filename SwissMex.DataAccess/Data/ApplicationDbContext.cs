@@ -32,7 +32,9 @@ namespace SwissMex.DataAccess.Data
                   Price = 10000,
                   ListPrice = 12500,
                   Price25 = 9500,
-                  Price50 = 8750
+                  Price50 = 8750,
+                  CategoryId = 1,
+                  ImageUrl = ""
                 },
                 new Product
                 {
@@ -44,7 +46,9 @@ namespace SwissMex.DataAccess.Data
                     Price = 100000,
                     ListPrice = 125000,
                     Price25 = 95000,
-                    Price50 = 87500
+                    Price50 = 87500,
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                  new Product
                  {
@@ -56,7 +60,9 @@ namespace SwissMex.DataAccess.Data
                      Price = 7000,
                      ListPrice = 8500,
                      Price25 = 6500,
-                     Price50 = 6000
+                     Price50 = 6000,
+                     CategoryId = 3,
+                     ImageUrl = ""
                  },
                  new Product
                  {
@@ -68,7 +74,9 @@ namespace SwissMex.DataAccess.Data
                      Price = 25000,
                      ListPrice = 28000,
                      Price25 = 23500,
-                     Price50 = 21500
+                     Price50 = 21500,
+                     CategoryId = 3,
+                     ImageUrl = ""
                  },
                  new Product
                  {
@@ -80,7 +88,9 @@ namespace SwissMex.DataAccess.Data
                      Price = 225000,
                      ListPrice = 245000,
                      Price25 = 195000,
-                     Price50 = 185000
+                     Price50 = 185000,
+                     CategoryId = 3,
+                     ImageUrl = ""
                  }
 
             );

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
 
@@ -25,6 +26,13 @@ namespace SwissMex.Web.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c =>
+                new SelectListItem { Value = c.Id.ToString(), Text = c.Name }
+            );
+
+            //ViewBag.CategoryList = CategoryList;
+            ViewData["CategoryList"] = CategoryList;
+
             return View();
         }
 

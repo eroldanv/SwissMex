@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwissMex.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using SwissMex.DataAccess.Data;
 namespace SwissMex.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126203442_AddForeignKeyToProduct")]
+    partial class AddForeignKeyToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,10 +86,6 @@ namespace SwissMex.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -120,7 +119,6 @@ namespace SwissMex.DataAccess.Migrations
                             Brand = "POWERAC",
                             CategoryId = 1,
                             Description = "Diámetro de conexión: Entrada 3\" y Salida 3\".\r\nRoca de conexión: Externa tubular.\r\nAltura total de descarga: 28 m.\r\nAltura de succión: 6 m.\r\nCaudal: 750 L./min.\r\nPotencia: 7 CV / 208 cc.\r\nArranque: Cordón retráctil.\r\nPresión: Normal / Basura.\r\nSensor de aceite: No.\r\nDimensiones: 530/430/440 mm.\r\nPeso aproximado: 36 Kg.",
-                            ImageUrl = "",
                             ListPrice = 12500.0,
                             PartNumber = "709260",
                             Price = 10000.0,
@@ -134,7 +132,6 @@ namespace SwissMex.DataAccess.Migrations
                             Brand = "KUHN",
                             CategoryId = 2,
                             Description = "Sistema de corte autolimpiable.\r\nSistema de alimentación a base de 2 tambores de corte que aseguran una mejor recolección y 2 de pre alimentación al volante de picado.\r\nSistema de protección por medio de tornillo fusible en caso de obstrucción de los tambores de alimentación (sobrecarga).\r\nAfilador de cuchilla de picado.\r\nRecubierta con pintura epóxica (horneada).\r\nTubo de descarga abatible para el transporte.\r\nDeflector para varias posiciones.\r\nEnganche a 3 puntos, Cat. II.\r\nRueda soporte.\r\nPotencia mínima requerida de 30 Hp.\r\n2 palas lanzaderas en el volante.\r\n10 navajas en el volante.\r\nPicado estándar de 4.5 mm.\r\nAltura de descarga 3.3 m.\r\nCapacidad máxima: 49 ton/h.\r\nPeso aproximado: 480.0 Kg.",
-                            ImageUrl = "",
                             ListPrice = 125000.0,
                             PartNumber = "633001",
                             Price = 100000.0,
@@ -148,7 +145,6 @@ namespace SwissMex.DataAccess.Migrations
                             Brand = "SWISSMEX",
                             CategoryId = 3,
                             Description = "Puedes sembrar maíz, garbanzo,frijol, jicama, girasol, etc.\r\nEstructura metálica recubierta con pintura epóxica para protegerla de la corrosión.\r\nMango de agarre con empuñadura plástica antiderrapante, ambidiestra.\r\nDeposito para semillas fabricado en polipropileno.\r\nGatillo de siembra de fácil accionamiento.\r\nMuelle del disparador de alta resistencia.\r\nPlaca que abre la tierra para depositar la semilla.\r\nBase de empuje para enterrar la placa.\r\nDeflector métalico que garantiza que la semilla caiga dentro de la perforación de la tierra.\r\nTanque con capacidad de 900 gramos. (maíz).\r\nColoca de 1 a 3 semillas por disparo.\r\n1.10 m. de largo.\r\nPeso aproximado: 4.0 Kg.",
-                            ImageUrl = "",
                             ListPrice = 8500.0,
                             PartNumber = "755002",
                             Price = 7000.0,
@@ -162,7 +158,6 @@ namespace SwissMex.DataAccess.Migrations
                             Brand = "SUPREMA",
                             CategoryId = 3,
                             Description = "Sistema de siembra inflador.\r\nPerilla de precisión que regula la profundidad de siembra.\r\nSe puede calibrar para diversos tipos de semillas y densidad de siembra.\r\nAsegura la colocación grano a grano.\r\nDesmbrague individual de los elementos.\r\nSeparación mínima entre líneas de 25 cm.\r\nTanque de fertilizador con mirada para viusalizar el nivel del fertilizante.\r\nLas salidas del fertilizador se pueden cancelar con facilidad.\r\nTimbre de alarma en cada unidad al atorar la semilla.\r\nLos elementos de siembra son activados por flechas.\r\nCon discos para sembrar maíz y sorgo.\r\n4 Líneas.\r\nSin fertilizador, con marcadores mecánicos.\r\nPeso aproximado 900.0 Kg.\r\nPuede comprar unidades de siembra por separado con el No. 456285.",
-                            ImageUrl = "",
                             ListPrice = 28000.0,
                             PartNumber = "756001",
                             Price = 25000.0,
@@ -176,7 +171,6 @@ namespace SwissMex.DataAccess.Migrations
                             Brand = "IRIS 2000",
                             CategoryId = 3,
                             Description = "Tanque extremadamente resistente con inhibidor de rayos UV, con aforo en litros y galones. \r\nAguilón de acero estructural con equilibrador. \r\nTapa abatible con válvula y coladera en la boca de llenado.\r\nTanque para lavado de manos del operador y tanque para lavado de circuito. \r\nIncluye mezclador. \r\nAgitador hidráulico tipo venturi.\r\nFiltro principal y filtros de línea.\r\nPorta boquillas con anti goteo integrado, filtro de 50 mallas y tuerca de acople rápido tipo bayoneta.\r\nNeumáticos de alto despeje tipo tractor.\r\nAltura mínima y máxima del aguilón: 1,1 m. -2,2m.\r\nEnganche tipo tirón\r\nCapacidad: 2200 litros.\r\nBoquillas: 48 x 3 = 11 (1102.02, 1102.04, 1030.015).\r\nBomba: RO 250.\r\nRegulador: computarizado.\r\nAncho de aspersión: 24 m.\r\nCV. Requeridos: 70-120\r\nPeso aproximado: 1.802,0 Kg.",
-                            ImageUrl = "",
                             ListPrice = 245000.0,
                             PartNumber = "815200",
                             Price = 225000.0,
