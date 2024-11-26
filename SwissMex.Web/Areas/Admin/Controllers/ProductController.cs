@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
+using SwissMex.Models.ViewModels;
 
 namespace SwissMex.Web.Areas.Admin.Controllers
 {
@@ -30,27 +31,40 @@ namespace SwissMex.Web.Areas.Admin.Controllers
                 new SelectListItem { Value = c.Id.ToString(), Text = c.Name }
             );
 
+            ProductVM productVM = new ProductVM
+            {
+                CategoryList = CategoryList
+            };
+
             //ViewBag.CategoryList = CategoryList;
             ViewData["CategoryList"] = CategoryList;
 
-            return View();
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product formInput)
+        public IActionResult Create(ProductVM formInput)
         {            
             if (ModelState.IsValid)
             {
                
-                _unitOfWork.Product.Add(formInput);
+                _unitOfWork.Product.Add(formInput.Product);
                 _unitOfWork.Save();
 
                 TempData["success"] = "Producto agregado correctamente!";
                 return RedirectToAction("Index");
             }
+            else
+            {
+                IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c =>
+                    new SelectListItem { Value = c.Id.ToString(), Text = c.Name }
+                );
+
+                formInput.CategoryList = CategoryList;
+            }
 
 
-            return View();
+            return View(formInput);
 
         }
 
