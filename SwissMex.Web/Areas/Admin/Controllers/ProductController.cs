@@ -10,11 +10,13 @@ namespace SwissMex.Web.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private IUnitOfWork _unitOfWork;
+        private IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             //this.context = context;
             _unitOfWork = unitOfWork;
+            this._webHostEnvironment = webHostEnvironment;
             //this._categoryRepository = categoryRepository;
         }
 
@@ -25,7 +27,7 @@ namespace SwissMex.Web.Areas.Admin.Controllers
             return View(productList);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c =>
                 new SelectListItem { Value = c.Id.ToString(), Text = c.Name }
@@ -33,21 +35,43 @@ namespace SwissMex.Web.Areas.Admin.Controllers
 
             ProductVM productVM = new ProductVM
             {
-                CategoryList = CategoryList
+                CategoryList = CategoryList,
+                Product = new Product()
             };
 
+            if(id == null || id == 0)
+            {
+                return View(productVM);
+            }
+            else
+            {
+                productVM.Product = _unitOfWork.Product.Get(x => x.Id == id)!;
+            }
+
             //ViewBag.CategoryList = CategoryList;
-            ViewData["CategoryList"] = CategoryList;
+            //ViewData["CategoryList"] = CategoryList;
 
             return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM formInput)
+        public IActionResult Upsert(ProductVM formInput,IFormFile? file)
         {            
             if (ModelState.IsValid)
             {
-               
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(file != null)
+                {
+                    string filenName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\products");
+                    using (var fileStream = new FileStream(Path.Combine(productPath, filenName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    formInput.Product.ImageUrl = @"\images\products\"+filenName;
+
+                }
+
                 _unitOfWork.Product.Add(formInput.Product);
                 _unitOfWork.Save();
 
@@ -62,7 +86,6 @@ namespace SwissMex.Web.Areas.Admin.Controllers
 
                 formInput.CategoryList = CategoryList;
             }
-
 
             return View(formInput);
 

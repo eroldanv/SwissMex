@@ -17,17 +17,17 @@ namespace SwissMex.Models.Models
 
 
         [Required]
-        public required string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required]
-        public required string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
-        public required string PartNumber { get; set; }
+        public string PartNumber { get; set; } = string.Empty;
 
 
         [Required]
-        public required string Brand { get; set; }
+        public string Brand { get; set; } = string.Empty;
 
         [Required]
         [Display(Name = "Precio de Lista")]
