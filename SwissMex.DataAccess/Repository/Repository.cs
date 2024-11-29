@@ -28,17 +28,34 @@ namespace SwissMex.DataAccess.Repository
             dbSet.Add(entity);            
         }
 
-        public TEntity? Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity? Get(Expression<Func<TEntity, bool>> filter, string? includeProperties = null)
         {
+            
             IQueryable<TEntity> query = dbSet;
+
+            if(!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var property in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(property);
+                }
+            }
+
             query = query.Where(filter);
 
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll(string? includeProperties = null)
         {
             IQueryable<TEntity> query = dbSet;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var property in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(property);
+                }
+            }
             return query.ToList();
         }
 

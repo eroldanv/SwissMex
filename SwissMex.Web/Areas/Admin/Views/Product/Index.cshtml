@@ -16,13 +16,14 @@
     </div>
 
 
-    <table class="table table-bordered table-striped">
+    <table id="myTable" class="table table-bordered table-striped" >
         <thead>
-            <tr>               
+            <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th class="align-middle">No. de Parte</th>
                 <th class="align-middle">Marca</th>
+                <th class="align-middle">Categoría</th>
                 <th class="align-middle">Precio de Lista</th>
                 <th></th>
             </tr>
@@ -46,6 +47,9 @@
                         @prod.Brand
                     </td>
                     <td class="align-middle">
+                        @prod.Category.Name
+                    </td>
+                    <td class="align-middle">
                         @prod.ListPrice
                     </td>
                     <td class="text-center align-middle">
@@ -62,7 +66,6 @@
                 </tr>
             }
         </tbody>
-
 
     </table>
 </div>

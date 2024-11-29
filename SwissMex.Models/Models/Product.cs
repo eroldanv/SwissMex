@@ -55,6 +55,7 @@ namespace SwissMex.Models.Models
         [ValidateNever]
         public Category Category { get; set; } = null!;
 
+
         public string ImageUrl { get; set; } = string.Empty;
 
 

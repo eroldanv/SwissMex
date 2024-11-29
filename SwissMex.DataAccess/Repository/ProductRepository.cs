@@ -24,9 +24,9 @@ namespace SwissMex.DataAccess.Repository
         //    this.context.SaveChanges();
         //}
 
-        public void Update(Product category)
+        public void Update(Product product)
         {
-            this.context.Update(category);
+            this.context.Update(product);            
         }
     }
 }

@@ -10,8 +10,8 @@ namespace SwissMex.DataAccess.Repository.IRepository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity? Get(Expression<Func<TEntity, bool>> filter);
+        IEnumerable<TEntity> GetAll(string? includeProperties = null);
+        TEntity? Get(Expression<Func<TEntity, bool>> filter, string? includeProperties = null);
         void Add(TEntity entity);
         //void Update(TEntity entity);
         void Remove(TEntity entity);
