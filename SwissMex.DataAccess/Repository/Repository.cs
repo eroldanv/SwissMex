@@ -59,6 +59,19 @@ namespace SwissMex.DataAccess.Repository
             return query.ToList();
         }
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync(string? includeProperties = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var property in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(property);
+                }
+            }
+            return await query.ToListAsync();
+        }
+
         public void Remove(TEntity entity)
         {
            dbSet.Remove(entity);

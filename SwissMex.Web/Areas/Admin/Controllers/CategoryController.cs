@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SwissMex.DataAccess.Data;
 using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
+using SwissMex.Utility;
+using SwissMex.Web.ViewComponents;
 
 namespace SwissMex.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class CategoryController : Controller
     {
         //private ApplicationDbContext context;
@@ -22,9 +26,11 @@ namespace SwissMex.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             //var categoriesList = context.Categories.ToList();
-            var categoriesList = _unitOfWork.Category.GetAll();
+            //var categoriesList = _unitOfWork.Category.GetAll();
 
-            return View(categoriesList);
+            //return View(categoriesList);
+            TempData["FullRender"] = true;
+            return ViewComponent(typeof(CategoryListViewComponent));
         }
 
         public IActionResult Create()

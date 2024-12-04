@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SwissMex.DataAccess.Repository.IRepository;
 using SwissMex.Models.Models;
 using SwissMex.Models.ViewModels;
+using SwissMex.Utility;
 
 namespace SwissMex.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize(Roles = SVD.ROLE_ADMIN)]
     public class ProductController : Controller
     {
         private IUnitOfWork _unitOfWork;

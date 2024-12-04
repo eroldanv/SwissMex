@@ -5,9 +5,9 @@
     @foreach (var product in Model)
     {
         <div class="col-lg-3 col-md-6">
-            <div class="row p-2">
-                <div class="col-12 p-1" style="border: 3px solid #444; border-radius: 10px;">
-                    <div class="card">
+            <div class="row p-2 h-100">
+                <div class="col-12 p-1 h-100" style="border: 3px solid #444; border-radius: 10px;">
+                    <div class="card h-100 pt-3">
                         <img src="@product.ImageUrl" />
                         <div class="card-body">
                             <div class="p-1">
@@ -23,16 +23,18 @@
                                 <p>Mayoreo: <b>$@product.Price50.ToString("0.00")</b></p>
                             </div>
                         </div>
+                        <div class="card-footer text-center">
+                            <a asp-action="Details" class="btn btn-primary form-control w-75 mt-2" asp-route-productId="@product.Id">Detalles</a>
+                        </div>
                     </div>
-                    <div>
-                        <a asp-action="Details" class="btn btn-primary form-control mt-2" asp-route-productId="@product.Id">Detalles</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
 
     }
 
-
-
 </div> 
+
+@await Component.InvokeAsync("CategoryList");
+
