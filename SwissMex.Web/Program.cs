@@ -31,6 +31,13 @@ builder.Services.ConfigureApplicationCookie(opt =>
 
 });
 
+builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
+{
+    options.ClientId = "--------";
+    options.ClientSecret = "---------";
+    
+});
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
